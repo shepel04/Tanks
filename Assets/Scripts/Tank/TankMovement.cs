@@ -71,7 +71,7 @@ public class TankMovement : MonoBehaviour
 
     private void Move()
     {
-        Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
+        Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.fixedDeltaTime;
 
         m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
     }
@@ -79,7 +79,7 @@ public class TankMovement : MonoBehaviour
 
     private void Turn()
     {
-        float turn = m_TurnInputValue * m_TurnSpeed * Time.deltaTime;
+        float turn = m_TurnInputValue * m_TurnSpeed * Time.fixedDeltaTime;
 
         Quaternion turnRotation = Quaternion.Euler (0f, turn, 0f);
 

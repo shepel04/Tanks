@@ -37,7 +37,7 @@ public class TankShooting : MonoBehaviour
             _currentLaunchForce = MaxLaunchForce;
             Fire ();
         }
-        else if (Input.GetButtonDown (_fireButton))
+        else if (Input.GetButtonDown(_fireButton))
         {
             _fired = false;
             _currentLaunchForce = MinLaunchForce;
@@ -45,13 +45,13 @@ public class TankShooting : MonoBehaviour
             ShootingAudio.clip = ChargingClip;
             ShootingAudio.Play ();
         }
-        else if (Input.GetButton (_fireButton) && !_fired)
+        else if (Input.GetButton(_fireButton) && !_fired)
         {
             _currentLaunchForce += _chargeSpeed * Time.deltaTime;
 
             AimSlider.value = _currentLaunchForce;
         }
-        else if (Input.GetButtonUp (_fireButton) && !_fired)
+        else if (Input.GetButtonUp(_fireButton) && !_fired)
         {
             Fire ();
         }
@@ -68,7 +68,7 @@ public class TankShooting : MonoBehaviour
     {
         _fired = true;
 
-        Rigidbody shellInstance = Instantiate (Shell, FireTransform.position, FireTransform.rotation) as Rigidbody;
+        Rigidbody shellInstance = Instantiate(Shell, FireTransform.position, FireTransform.rotation) as Rigidbody;
 
         shellInstance.velocity = _currentLaunchForce * FireTransform.forward; ;
 

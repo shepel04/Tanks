@@ -1,22 +1,20 @@
 ﻿using System;
-using UnityEngine;
 using Tank;
+using UnityEngine;
 
 [Serializable]
 public class TankManager
 {
-    public Color PlayerColor;            
-    public Transform SpawnPoint;         
-    [HideInInspector] public int PlayerNumber;             
+    public Color PlayerColor;
+    public Transform SpawnPoint;
+    [HideInInspector] public int PlayerNumber;
     [HideInInspector] public string ColoredPlayerText;
-    [HideInInspector] public GameObject Instance;          
-    [HideInInspector] public int Wins;                     
+    [HideInInspector] public GameObject Instance;
+    [HideInInspector] public int Wins;
 
-
-    private TankMovement _movement;       
+    private TankMovement _movement;
     private TankShooting _shooting;
     private GameObject _canvasGameObject;
-
 
     public void Setup()
     {
@@ -31,12 +29,11 @@ public class TankManager
 
         MeshRenderer[] renderers = Instance.GetComponentsInChildren<MeshRenderer>();
 
-        for (int i = 0; i < renderers.Length; i++)
+        foreach (MeshRenderer renderer in renderers)
         {
-            renderers[i].material.color = PlayerColor;
+            renderer.material.color = PlayerColor;
         }
     }
-
 
     public void DisableControl()
     {
@@ -46,7 +43,6 @@ public class TankManager
         _canvasGameObject.SetActive(false);
     }
 
-
     public void EnableControl()
     {
         _movement.enabled = true;
@@ -54,7 +50,6 @@ public class TankManager
 
         _canvasGameObject.SetActive(true);
     }
-
 
     public void Reset()
     {

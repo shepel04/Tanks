@@ -3,68 +3,68 @@ using UnityEngine.UI;
 
 public class TankHealth : MonoBehaviour
 {
-    public float m_StartingHealth = 100f;          
-    public Slider m_Slider;                        
-    public Image m_FillImage;                      
-    public Color m_FullHealthColor = Color.green;  
-    public Color m_ZeroHealthColor = Color.red;    
-    public GameObject m_ExplosionPrefab;
+    public float StartingHealth = 100f;          
+    public Slider HealthSlider;                        
+    public Image FillImage;                      
+    public Color FullHealthColor = Color.green;  
+    public Color ZeroHealthColor = Color.red;    
+    public GameObject ExplosionPrefab;
     
-    private AudioSource m_ExplosionAudio;          
-    private ParticleSystem m_ExplosionParticles;   
-    private float m_CurrentHealth;  
-    private bool m_Dead;            
+    private AudioSource _explosionAudio;          
+    private ParticleSystem _explosionParticles;   
+    private float _currentHealth;  
+    private bool _dead;            
 
 
     private void Awake()
     {
-        m_ExplosionParticles = Instantiate(m_ExplosionPrefab).GetComponent<ParticleSystem>();
-        m_ExplosionAudio = m_ExplosionParticles.GetComponent<AudioSource>();
+        _explosionParticles = Instantiate(ExplosionPrefab).GetComponent<ParticleSystem>();
+        _explosionAudio = _explosionParticles.GetComponent<AudioSource>();
 
-        m_ExplosionParticles.gameObject.SetActive(false);
+        _explosionParticles.gameObject.SetActive(false);
     }
 
 
     private void OnEnable()
     {
-        m_CurrentHealth = m_StartingHealth;
-        m_Dead = false;
+        _currentHealth = StartingHealth;
+        _dead = false;
 
         SetHealthUI();
     }
 
     public void TakeDamage(float amount)
     {
-        m_CurrentHealth -= amount;
+        _currentHealth -= amount;
 
-        SetHealthUI ();
+        SetHealthUI();
 
-        if (m_CurrentHealth <= 0f && !m_Dead)
+        if (_currentHealth <= 0f && !_dead)
         {
-            OnDeath ();
+            OnDeath();
         }
     }
 
 
     private void SetHealthUI()
     {
-        m_Slider.value = m_CurrentHealth;
+        HealthSlider.value = _currentHealth;
 
-        m_FillImage.color = Color.Lerp (m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
+        FillImage.color = Color.Lerp(ZeroHealthColor, FullHealthColor, _currentHealth / StartingHealth);
     }
 
 
     private void OnDeath()
     {
-        m_Dead = true;
+        _dead = true;
 
-        m_ExplosionParticles.transform.position = transform.position;
-        m_ExplosionParticles.gameObject.SetActive (true);
+        _explosionParticles.transform.position = transform.position;
+        _explosionParticles.gameObject.SetActive(true);
 
-        m_ExplosionParticles.Play ();
+        _explosionParticles.Play();
 
-        m_ExplosionAudio.Play();
+        _explosionAudio.Play();
 
-        gameObject.SetActive (false);
+        gameObject.SetActive(false);
     }
 }
